@@ -1,0 +1,4 @@
+.env
+/credentials
+/tests copy
+/python_env
