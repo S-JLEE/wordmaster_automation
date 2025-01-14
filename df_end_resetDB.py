@@ -7,21 +7,21 @@ credential_path = 'credentials/etoos-automation-2370e7d11ce8.json'
 credentials = service_account.Credentials.from_service_account_file(credential_path)
 client = bigquery.Client(credentials=credentials, project=credentials.project_id)
 
-# read data - account.json
+# 1. read data - account.json
 json_filepath = './account.json'
 with open(json_filepath, 'r') as file:
     data = json.load(file)
 
 test_id = data["test_id"]
 
-# QUERY - reset availability to TRUE
+# 2. QUERY - reset availability to TRUE
 query1 = f'''
 UPDATE `etoos-automation.Wordmaster_automation_DB.login_info`
 SET AVAILABILITY = TRUE
 WHERE ID = '{test_id}' ;
 '''
 
-# QUERY - set task complete to true
+# 3. QUERY - set task complete to true
 query2 = f'''
 UPDATE `etoos-automation.Wordmaster_automation_DB.login_info`
 SET TASK_COMPLETE = TRUE

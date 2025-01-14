@@ -4,7 +4,7 @@ from time import sleep
 import json
 import random
 
-# 계정 분리를 위한 난수 생성
+# 계정 분리를 위한 난수 생성 함수
 def generate_random_number():
     max_iter = random.randint(3, 10)
     num_iter = 0
@@ -25,31 +25,20 @@ def generate_random_number():
 
     return random_num
 
+# 1. Generate random number for wait
 random_number = generate_random_number()
 print(f"time to sleep for {round(random_number * 2, 2)} second ")
 sleep(random_number * 2)
-
 
 credential_path = 'credentials/etoos-automation-2370e7d11ce8.json'
 credentials = service_account.Credentials.from_service_account_file(credential_path)
 client = bigquery.Client(credentials=credentials, project=credentials.project_id)
 
-# Resetting task completion column True > False
-query ='''
-UPDATE `etoos-automation.Wordmaster_automation_DB.login_info`
-SET TASK_COMPLETE = FALSE
-WHERE ID is not NULL;
-'''
-job = client.query(query)
-job.result()
-print("Reset TASK_COMPLETE column in Account DB")
-
-# Get account information from Google Bigquery
+# 2. Get account information from Google Bigquery
 query = '''
 SELECT *
 FROM `etoos-automation.Wordmaster_automation_DB.login_info`;
 '''
-
 job = client.query(query) # API request
 login_df = job.to_dataframe() # Bigquery에서 가져온 내용을 data frame에 저장
 

@@ -14,10 +14,19 @@ import logging
 import sys
 from google.oauth2 import service_account
 from google.cloud import bigquery
+from dotenv import load_dotenv
+import os
+
+# .env setting
+load_dotenv()
+internal_webhook = os.getenv("WEBHOOK_URL")
+aws_access_key_id = os.getenv("AWS_ACCESSKEY_ID")
+aws_secret_access_key = os.getenv("AWS_SECRET_ACCESSKEY")
+
 
 # Alarm creation
 def webhookSender(text):
-    webhook_url = "https://mm.etoos.com/hooks/438rqq34utykzjz91eoh39bcmy"
+    webhook_url = internal_webhook
     message = {
         "text": f"{text}"
     }
@@ -126,11 +135,10 @@ def list_artifacts(client, arn, type):
         logging.error(f"An error occurred while listing artifacts: {e}")
         return []
 
-# Setting Credentials
+############## Setting Credentials
 # AWS
-aws_access_key = pd.read_csv("./credentials/ZE231204_accessKeys.csv")
-ACCESS_KEY_ID = aws_access_key["Access key ID"][0]
-SECRET_ACCESS_KEY = aws_access_key["Secret access key"][0]
+ACCESS_KEY_ID = aws_access_key_id
+SECRET_ACCESS_KEY = aws_secret_access_key
 
 # Google Bigquery
 credential_path = 'credentials/etoos-automation-2370e7d11ce8.json'

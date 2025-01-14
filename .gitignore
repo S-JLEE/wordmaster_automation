@@ -2,3 +2,5 @@
 /credentials
 /tests copy
 /python_env
+*.yml
+*.zip

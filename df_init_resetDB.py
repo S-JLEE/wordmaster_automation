@@ -14,7 +14,7 @@ SET AVAILABILITY = TRUE
 WHERE ID is not NULL ;
 '''
 
-# QUERY - set task complete to true
+# QUERY - set task complete to FALSE
 query2 = f'''
 UPDATE `etoos-automation.Wordmaster_automation_DB.login_info`
 SET TASK_COMPLETE = FALSE
