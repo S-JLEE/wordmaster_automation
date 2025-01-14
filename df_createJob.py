@@ -1,11 +1,13 @@
 import boto3
 import datetime
 import pandas as pd
+from dotenv import load_dotenv
+import os
 
-# AWS 자격 증명 설정 / 자격 증명 관련된 내용은 인프라팀에 문의
-aws_access_key = pd.read_csv("/Users/etoos/Desktop/Documents/Etoos/Project/automation/wordmaster/device_farm/wordmaster/LIVE/credentials/ZE231204_accessKeys.csv") # Access key 파일의 절대 경로 삽입
-aws_access_key_id = aws_access_key["Access key ID"][0]
-aws_secret_access_key = aws_access_key["Secret access key"][0]
+# .env 설정 및 AWS 자격 증명 설정
+load_dotenv()
+aws_access_key_id = os.getenv("AWS_ACCESSKEY_ID")
+aws_secret_access_key = os.getenv("AWS_SECRET_ACCESSKEY")
 region_name = 'us-west-2'  # Device Farm 서비스가 있는 AWS 지역 (고정)
 
 # Device Farm 클라이언트 생성
